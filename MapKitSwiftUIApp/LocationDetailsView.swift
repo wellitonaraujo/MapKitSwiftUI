@@ -35,7 +35,7 @@ struct LocationDetailsView: View {
                     show.toggle()
                     mapSelection = nil
                 } label: {
-                    Image(systemName: "xmark.cirlce.fill")
+                    Image(systemName: "xmark.circle")
                         .resizable()
                         .frame(width: 24, height: 24)
                         .foregroundStyle(.gray, Color(.systemGray6))
@@ -47,11 +47,11 @@ struct LocationDetailsView: View {
             
             if let scene = lookAroundScene {
                 LookAroundPreview(initialScene: scene)
-                    .frame(width: 200)
+                    .frame(width: 350)
                     .cornerRadius(12)
                     .padding()
             } else {
-                ContentUnavailableView("Nenhuma visualização disponível.", systemImage: "eye,slash")
+                ContentUnavailableView("Nenhuma visualização disponível.", systemImage: "eye.slash")
             }
            
             HStack(spacing: 24) {  // HStack Buttons

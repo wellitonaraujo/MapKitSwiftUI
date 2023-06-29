@@ -41,8 +41,15 @@ struct ContentView: View {
             }
             
             ForEach(results, id: \.self) { item in
-                let placeMark = item.placemark
-                Marker(placeMark.name ?? "",coordinate: placeMark.coordinate)
+                if routeDisplaying {
+                    if item == routeDestination {
+                        let placeMark = item.placemark
+                        Marker(placeMark.name ?? "",coordinate: placeMark.coordinate)
+                    }
+                } else {
+                    let placeMark = item.placemark
+                    Marker(placeMark.name ?? "",coordinate: placeMark.coordinate)
+                }
             }
             
             if let route {
@@ -105,11 +112,12 @@ extension ContentView {
             
             Task {
                 let result = try? await MKDirections(request: request).calculate()
+                route = result?.routes.first
                 routeDestination = mapSelection
                 
                 withAnimation(.snappy) {
                     routeDisplaying = true
-                    showDetails = false
+                    showDetails = true
                     
                     if let rect = route?.polyline.boundingMapRect, routeDisplaying {
                         cameraPosition = .rect(rect)
